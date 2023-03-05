@@ -7,7 +7,7 @@
     "tsc": "tsc",
     "start:dev": "nodemon",
     "build": "rimraf ./build && tsc",
-    "start": "npm run build && node build/FCoffeeManagement.js",
+    "start": "npm run build && node build/src/FCoffeeManagement.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "push": "cd src/statistics/services;clasp push;cd -"
   },
@@ -15,12 +15,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^12.12.14",
     "@types/lodash": "^4.14.136",
+    "@types/node": "^12.12.14",
     "nodemon": "^2.0.1",
     "rimraf": "^3.0.0",
     "ts-node": "^8.5.2",
-    "typescript": "^3.7.2"
+    "typescript": "^3.9.10"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -31,6 +31,7 @@
     "@types/uuid": "^3.4.6",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.19",

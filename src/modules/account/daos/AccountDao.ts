@@ -12,7 +12,9 @@ export class AccountDao {
     pool: any
 
     constructor() {
+        console.log(`Start connect pool`);
         this.pool = Connection.connectDB();
+        console.log(`End connect pool`);
     }
 
     generateId() {
@@ -31,6 +33,8 @@ export class AccountDao {
 
     async getAccountByUsername(username: string): Promise<DaoAccount> {
         const query = `SELECT * FROM ${DATABASE_NAME}.${TABLE_NAME} WHERE username = '${username}';`;
+        console.log(this.pool);
+
         const result = await this.pool.query(query);
         const daoAccount = new DaoAccount().toDaoAccount(result[0][0]);
         return daoAccount;

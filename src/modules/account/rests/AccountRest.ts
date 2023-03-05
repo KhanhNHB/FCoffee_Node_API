@@ -21,7 +21,7 @@ export class AccountRest {
             const accounts = await this.accountService.getAccounts();
             return res.send(ResponseEntity.ok(accounts));
         } catch (err) {
-            return res.send(ResponseEntity.ok([], HttpStatus.FAIL, err));
+            return res.send(ResponseEntity.error([], HttpStatus.FAIL, err));
         }
     }
 
@@ -32,7 +32,7 @@ export class AccountRest {
             const account = await this.accountService.getAccountByUsername(req.params.username);
             return res.send(ResponseEntity.ok(account));
         } catch (err) {
-            return res.status(404).send(ResponseEntity.ok(null, HttpStatus.FAIL, err));
+            return res.status(404).send(ResponseEntity.error(null, HttpStatus.FAIL, err));
         }
     }
 
@@ -45,8 +45,8 @@ export class AccountRest {
             const result = await this.accountService.create(req);
             return res.send(ResponseEntity.ok(result));
         } catch (err) {
-            return res.status(400)
-                .send(ResponseEntity.ok(false, HttpStatus.FAIL, err));
+            console.log(`Error create account ${err}`);
+            return res.status(400).send(ResponseEntity.error(false, HttpStatus.FAIL, err));
         }
     }
 
@@ -62,8 +62,7 @@ export class AccountRest {
             const result = await this.accountService.update(req);
             return res.send(ResponseEntity.ok(result));
         } catch (error) {
-            return res
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, error));
+            return res.send(ResponseEntity.error(null, HttpStatus.FAIL, error));
         }
     }
 
@@ -77,8 +76,7 @@ export class AccountRest {
             let result = await this.accountService.delete(username);
             return res.send(ResponseEntity.ok(result));
         } catch (error) {
-            return res
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, error));
+            return res.send(ResponseEntity.error(null, HttpStatus.FAIL, error));
         }
     }
 }

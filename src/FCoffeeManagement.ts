@@ -2,6 +2,7 @@ import * as jwt from "jsonwebtoken";
 import morgan from "morgan";
 import "reflect-metadata";
 import { Action, createExpressServer } from "routing-controllers";
+import { Connection } from "./database";
 import { AccountRest } from "./modules/account/rests/AccountRest";
 import { AuthRest } from "./modules/auth/rests/AuthRest";
 import { BillInfoRest } from "./modules/bill/billInfo/rests/BillInfoRest";
@@ -14,7 +15,9 @@ import { TableRest } from "./modules/table/rests/TableRest";
 import { ResponseEntity } from "./modules/utils";
 import { ErrorHandle } from "./modules/utils/response/ErrorHandle";
 
-const port = process.env.PORT || 9000;
+require("dotenv").config({ path: ".env" });
+
+const port = process?.env?.PORT || 9000;
 
 const app = createExpressServer({
     currentUserChecker: async (action: Action) => {
@@ -54,5 +57,6 @@ const app = createExpressServer({
 app.use(morgan("dev"));
 
 app.listen(port, () => {
+    Connection.connectDB();
     console.log(`Application run on port ${port}`);
 });

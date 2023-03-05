@@ -32,7 +32,7 @@ export class AccountSerivce {
 
     async getAccountByUsername(username: string): Promise<Account> {
         const daoAccount = await this.accountDao.getAccountByUsername(username);
-        if (isUndefined(daoAccount) || !daoAccount) {
+        if (daoAccount === undefined || !daoAccount) {
             throw new NotFoundError(`Not found account by ${username}`);
         }
         const account = new Account().toAccount(daoAccount);
@@ -52,8 +52,9 @@ export class AccountSerivce {
             const daoAccount = new DaoAccount().toDaoAccount(req);
             daoAccount.password = await Encode.hash(daoAccount.password);
             await this.accountDao.create(daoAccount);
-            return true;
         }
+        
+        return true;
     }
 
     async update(req: AccountUpdation): Promise<Boolean> {
