@@ -22,9 +22,10 @@ export class TableRest {
             const tables = await this.tableService.getTables();
             return res.send(ResponseEntity.ok(tables));
         } catch (err) {
+            console.log(`Error get all table ${err}`);
             return res
                 .status(HttpStatusCode.NOT_FOUND)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, err));
+                .send(ResponseEntity.error(null, HttpStatus.FAIL, err));
         }
     }
 
@@ -38,9 +39,10 @@ export class TableRest {
                 .send(ResponseEntity.ok(null, HttpStatus.FAIL));
             return res.send(ResponseEntity.ok(table));
         } catch (err) {
+            console.log(`Error get detail table by id ${id}, ${err}`);
             return res
                 .status(HttpStatusCode.NOT_FOUND)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, err));
+                .send(ResponseEntity.error(null, HttpStatus.FAIL, err));
         }
     }
 
@@ -56,9 +58,10 @@ export class TableRest {
                 .status(HttpStatusCode.CREATED)
                 .send(ResponseEntity.ok(result));
         } catch (err) {
+            console.log(`Error create table ${err}`);
             return res
                 .status(HttpStatusCode.NOT_FOUND)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, err));
+                .send(ResponseEntity.error(null, HttpStatus.FAIL, err));
         }
     }
 
@@ -74,10 +77,11 @@ export class TableRest {
             req.id = id;
             const result = await this.tableService.checkIn(req, auth);
             return res.send(ResponseEntity.ok(result));
-        } catch (error) {
+        } catch (err) {
+            console.log(`Error check in table by id ${id}, ${err}`);
             return res
                 .status(HttpStatusCode.NOT_FOUND)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, error));
+                .send(ResponseEntity.error(null, HttpStatus.FAIL, err));
         }
     }
 
@@ -91,10 +95,11 @@ export class TableRest {
         try {
             const result = await this.tableService.checkOut(id, auth);
             return res.send(ResponseEntity.ok(result));
-        } catch (error) {
+        } catch (err) {
+            console.log(`Error check-out table by id ${id}, ${err}`);
             return res
                 .status(HttpStatusCode.NOT_FOUND)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, error));
+                .send(ResponseEntity.error(null, HttpStatus.FAIL, err));
         }
     }
 
@@ -110,10 +115,11 @@ export class TableRest {
             req.table_id = id;
             const result = await this.tableService.deleteProductItem(req, auth);
             return res.send(ResponseEntity.ok(result));
-        } catch (error) {
+        } catch (err) {
+            console.log(`Error clean table by id ${id}, ${err}`);
             return res
                 .status(HttpStatusCode.METHOD_NOT_ALLOWED)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, error));
+                .send(ResponseEntity.error(null, HttpStatus.FAIL, err));
         }
     }
 }

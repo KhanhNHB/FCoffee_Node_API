@@ -21,9 +21,10 @@ export class CategoryRest {
             const category = await this.categoryService.getCategories();
             return res.send(ResponseEntity.ok(category));
         } catch (err) {
+            console.log(`Error get all categories ${err}`);
             return res
                 .status(HttpStatusCode.NOT_FOUND)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, err));
+                .send(ResponseEntity.error(null, HttpStatus.FAIL, err));
         }
 
     }
@@ -40,9 +41,10 @@ export class CategoryRest {
 
             return res.send(ResponseEntity.ok(category));
         } catch (err) {
+            console.log(`Error get category by id ${id}, ${err}`);
             return res
                 .status(HttpStatusCode.NOT_FOUND)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, err));
+                .send(ResponseEntity.error(null, HttpStatus.FAIL, err));
         }
     }
 
@@ -58,8 +60,9 @@ export class CategoryRest {
                 .status(HttpStatusCode.CREATED)
                 .send(ResponseEntity.ok(result));
         } catch (err) {
+            console.log(`Error create category ${err}`);
             return res
-                .send(ResponseEntity.ok(false, HttpStatus.FAIL, err));
+                .send(ResponseEntity.error(false, HttpStatus.FAIL, err));
         }
 
     }

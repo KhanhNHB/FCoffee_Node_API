@@ -18,10 +18,9 @@ export class AuthRest {
         try {
             const result = await this.authService.checkSignIn(req);
             return res.send(ResponseEntity.ok(result));
-        } catch (error) {
-            return res
-                .status(404)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, error));
+        } catch (err) {
+            console.log(`Auth sign in is error: ${err}`);
+            return res.status(404).send(ResponseEntity.error(null, HttpStatus.FAIL, err));
         }
     }
 }

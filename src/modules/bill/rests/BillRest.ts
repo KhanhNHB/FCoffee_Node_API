@@ -22,9 +22,10 @@ export class BillRest {
             const bills = await this.billService.getBills();
             return res.send(ResponseEntity.ok(bills));
         } catch (err) {
+            console.log(`Error get all bills ${err}`);
             return res
                 .status(HttpStatusCode.NOT_FOUND)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, err));
+                .send(ResponseEntity.error(null, HttpStatus.FAIL, err));
         }
     }
 
@@ -39,9 +40,10 @@ export class BillRest {
 
             return res.send(ResponseEntity.ok(bill));
         } catch (err) {
+            console.log(`Error get detail bill by id ${id}, ${err}`);
             return res
                 .status(HttpStatusCode.NOT_FOUND)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, err));
+                .send(ResponseEntity.error(null, HttpStatus.FAIL, err));
         }
     }
 
@@ -55,9 +57,10 @@ export class BillRest {
                 .send(ResponseEntity.ok(null, HttpStatus.FAIL));
             return res.send(ResponseEntity.ok(bill));
         } catch (err) {
+            console.log(`Error get bill by user ${err}`);
             return res
                 .status(HttpStatusCode.NOT_FOUND)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, err));
+                .send(ResponseEntity.error(null, HttpStatus.FAIL, err));
         }
     }
 
@@ -73,9 +76,10 @@ export class BillRest {
                 .status(HttpStatusCode.CREATED)
                 .send(ResponseEntity.ok(result));
         } catch (err) {
+            console.log(`Error create bill ${err}`);
             return res
                 .status(HttpStatusCode.NOT_FOUND)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, err));
+                .send(ResponseEntity.error(null, HttpStatus.FAIL, err));
         }
     }
 
@@ -90,10 +94,11 @@ export class BillRest {
             req.id = id;
             const result = await this.billService.update(req);
             return res.send(ResponseEntity.ok(result));
-        } catch (error) {
+        } catch (err) {
+            console.log(`Error update bill by id ${id} ${err}`);
             return res
                 .status(HttpStatusCode.NOT_FOUND)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, error));
+                .send(ResponseEntity.ok(null, HttpStatus.FAIL, err));
         }
     }
 

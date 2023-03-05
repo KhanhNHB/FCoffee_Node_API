@@ -21,9 +21,10 @@ export class ProductRest {
             const products = await this.productService.getProducts();
             return res.send(ResponseEntity.ok(products));
         } catch (err) {
+            console.log(`Error get all product ${err}`);
             return res
                 .status(HttpStatusCode.NOT_FOUND)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, err));
+                .send(ResponseEntity.error(null, HttpStatus.FAIL, err));
         }
     }
 
@@ -38,9 +39,10 @@ export class ProductRest {
 
             return res.send(ResponseEntity.ok(product));
         } catch (err) {
+            console.log(`Error get detail product by id ${id}, ${err}`);
             return res
                 .status(HttpStatusCode.NOT_FOUND)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, err));
+                .send(ResponseEntity.error(null, HttpStatus.FAIL, err));
         }
     }
 
@@ -56,9 +58,10 @@ export class ProductRest {
                 .status(HttpStatusCode.CREATED)
                 .send(ResponseEntity.ok(result));
         } catch (err) {
+            console.log(`Error create product ${err}`);
             return res
                 .status(HttpStatusCode.NOT_FOUND)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, err));
+                .send(ResponseEntity.error(null, HttpStatus.FAIL, err));
         }
     }
 
@@ -75,10 +78,11 @@ export class ProductRest {
             req.updated_by_id = auth.data.username;
             const result = await this.productService.update(req);
             return res.send(ResponseEntity.ok(result));
-        } catch (error) {
+        } catch (err) {
+            console.log(`Error update product by id ${id}, ${err}`);
             return res
                 .status(HttpStatusCode.NOT_FOUND)
-                .send(ResponseEntity.ok(null, HttpStatus.FAIL, error));
+                .send(ResponseEntity.ok(null, HttpStatus.FAIL, err));
         }
     }
 
