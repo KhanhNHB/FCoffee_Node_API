@@ -18,6 +18,8 @@ To run the project, please use a command line the following:
 ### 2023-03-05 update
 
 - Refactored MySQL connection to a proper common service.
+- Add log in Controller each service. Remove some file done need.
+- Upgrade library.
 - Added a docker-compose configuration file.
 
 If you are familiar to docker and you have docker installed on your machine and just want to run the project without issues please do:
